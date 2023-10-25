@@ -1,4 +1,6 @@
-﻿namespace PrismMaui;
+﻿using CommunityToolkit.Maui;
+
+namespace PrismMaui;
 
 public static class MauiProgram
 {
@@ -7,6 +9,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UsePrismApp<App>(PrismStartup.Configure)
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

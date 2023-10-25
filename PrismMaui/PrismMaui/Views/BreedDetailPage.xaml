@@ -1,18 +1,47 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="{Binding Title}"
              x:Class="PrismMaui.Views.BreedDetailPage"
-             Title="BreedDetailPage">
+             x:Name="Root">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Color x:Key="SelectedColor">Gray</Color>
+      <Color x:Key="UnselectedColor">White</Color>
+      <toolkit:BoolToObjectConverter x:Key="BoolToColorConverter"
+                                     TrueObject="{StaticResource SelectedColor}"
+                                     FalseObject="{StaticResource UnselectedColor}" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
   
   <ScrollView>
     <StackLayout Margin="16" Spacing="8">
-      <Image Source="{Binding CatImage.Url}" HeightRequest="300" />
-      
+      <FlexLayout Wrap="Wrap" JustifyContent="SpaceAround"
+                  BindableLayout.ItemsSource="{Binding CatImages}">
+        <BindableLayout.ItemTemplate>
+          <DataTemplate>
+            <Grid BackgroundColor="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}"
+                  HeightRequest="200" WidthRequest="200" Padding="8" Margin="0,8">
+              <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding BindingContext.ItemTappedCommand, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+              </Grid.GestureRecognizers>
+
+              <Image Source="{Binding Url}" BackgroundColor="White" />
+            </Grid>
+          </DataTemplate>
+        </BindableLayout.ItemTemplate>
+      </FlexLayout>
+
       <Label Text="{Binding CatBreed.Name}" HorizontalOptions="CenterAndExpand" FontSize="Large" />
       <Label Text="{Binding CatBreed.Description}" HorizontalOptions="CenterAndExpand" />
-      
-      <Button Text="Look for another breed" Command="{Binding GoBackCommand}" HorizontalOptions="CenterAndExpand" />
+
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="8" HorizontalOptions="CenterAndExpand">
+        <Button Grid.Column="0" Text="Look for another breed" Command="{Binding GoBackCommand}"  />
+        <Button Grid.Column="1" Text="Take a look at tabbed view" Command="{Binding TabbedPageCommand}" />
+      </Grid>
     </StackLayout>
   </ScrollView>
 </ContentPage>

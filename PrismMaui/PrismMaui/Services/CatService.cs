@@ -39,10 +39,10 @@ namespace PrismMaui.Services
             return JsonConvert.DeserializeObject<IList<CatBreed>>(response.ToString());
         }
 
-        public async Task<CatImage> SearchCatImageById(string id)
+        public async Task<IList<CatImage>> SearchCatImagesById(string id, int limit = 10)
         {
             var api = GetApi();
-            var serverResponse = await api.GetCatImage(id);
+            var serverResponse = await api.GetCatImages(id);
 
             var result = await ApiHelper.HandleResponseAsync(apiService, mapperService, serverResponse, LogHelper.GetLogger());
             if (!result.IsSuccess)
@@ -50,7 +50,7 @@ namespace PrismMaui.Services
                 // Todo
             }
             var response = result.ResponseObject;
-            return JsonConvert.DeserializeObject<IList<CatImage>>(response.ToString()).FirstOrDefault();
+            return JsonConvert.DeserializeObject<IList<CatImage>>(response.ToString());
         }
     }
 }

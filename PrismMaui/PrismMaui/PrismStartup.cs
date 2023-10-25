@@ -1,4 +1,7 @@
-﻿using PrismMaui.Apis;
+﻿using Prism;
+using Prism.Ioc;
+using Prism.Mvvm;
+using PrismMaui.Apis;
 using PrismMaui.Apis.Interfaces;
 using PrismMaui.Services;
 using PrismMaui.Services.Interfaces;
@@ -26,12 +29,8 @@ internal static class PrismStartup
 
         // Register Views for navigation
         containerRegistry
-            .RegisterForNavigation<MainPage>()
-            .RegisterForNavigation<BreedDetailPage>();
-
-        // Register ViewModelLocator for better performance (does not need to use reflection)
-        // Note that it still works even if we do not manually register
-        ViewModelLocationProvider.Register<MainPage, MainPageViewModel>();
-        ViewModelLocationProvider.Register<BreedDetailPage, BreedDetailPageViewModel>();
+            .RegisterForNavigation<CatTabbedPage, CatTabbedPageViewModel>()
+            .RegisterForNavigation<MainPage, MainPageViewModel>()
+            .RegisterForNavigation<BreedDetailPage, BreedDetailPageViewModel>();
     }
 }

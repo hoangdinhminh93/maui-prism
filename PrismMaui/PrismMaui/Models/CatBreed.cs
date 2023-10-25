@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-
-namespace PrismMaui.Models
+﻿namespace PrismMaui.Models
 {
-    public class CatBreed : BaseModel
+    public partial class CatBreed : BaseModel
     {
         public string Id { get; set; }
         public string Name { get; set; }

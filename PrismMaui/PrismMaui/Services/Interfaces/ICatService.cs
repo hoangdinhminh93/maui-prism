@@ -5,6 +5,6 @@ namespace PrismMaui.Services.Interfaces
     public interface ICatService
     {
         Task<IList<CatBreed>> SearchAllBreeds();
-        Task<CatImage> SearchCatImageById(string id);
+        Task<IList<CatImage>> SearchCatImagesById(string id, int limit = 10);
     }
 }

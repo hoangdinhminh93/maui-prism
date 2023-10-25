@@ -12,7 +12,7 @@ namespace PrismMaui.Apis.Interfaces
         [Get("/breeds")]
         Task<HttpResponseMessage> GetCatBreeds();
 
-        [Get("/images/search?breed_ids={id}")]
-        Task<HttpResponseMessage> GetCatImage(string id);
+        [Get("/images/search?breed_ids={id}&limit={limit}")]
+        Task<HttpResponseMessage> GetCatImages(string id, int limit = 10);
     }
 }
